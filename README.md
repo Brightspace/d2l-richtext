@@ -1,6 +1,6 @@
 # d2l-richtext
 
-The D2L-Richtext component takes in Annotated Html from a d2l siren richtext entity and renders it to the page, allowing the client to define custom behaviour for annotated tags by providing consumers.
+The `d2l-richtext` component takes in Annotated Html from a D2L Siren "richtext" entity and renders it to the page, allowing the client to define custom behaviour for annotated tags by providing consumers.
 
 ```
 <link rel="import" href="../../../polymer/polymer.html">

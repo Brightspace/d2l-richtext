@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-richtext demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../d2l-typography/d2l-typography.html">
+		<link rel="import" href="../d2l-richtext.html">
+		<style is="custom-style" include="d2l-typography"></style>
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>
+		<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+		</custom-style>
+		<style>
+			html {
+				font-size: 20px;
+			}
+			.padding {
+				padding: 3px;
+			}
+		</style>
+	</head>
+	<body unresolved class="d2l-typography">
+		<div class="vertical-section-container centered">
+			<h3>Rendering Basic HTML</h3>
+			<demo-snippet>
+				<template>
+					<d2l-richtext richtext="<p><div style='height: 100px; width: 100px; background: blue;'></div> ThisIsText </p>">
+					</d2l-richtext>
+				</template>
+			</demo-snippet>
+		</div>
+
+		<div class="vertical-section-container centered">
+				<h3>Replacing quicklink richtext</h3>
+				<demo-snippet>
+					<template>
+						<d2l-richtext
+							richtext="<p>This demo will:</p><p><d2l-richtext-quicklink>Replace the d2l-richtext-quicklink component with a <b>i</b> tag</d2l-richtext-quicklink></p>"
+							quicklink-consumer="i"
+						>
+						</d2l-richtext>
+					</template>
+				</demo-snippet>
+			</div>
+	</body>
+</html>

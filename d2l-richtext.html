@@ -39,7 +39,7 @@
 				if (!provider) {
 					return richtext;
 				}
-				function replace (str, tagStart) {
+				function replace(str, tagStart) {
 					return tagStart + provider;
 				}
 				return richtext.replace(tagName, replace);

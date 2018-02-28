@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "s-html": "^0.1.3",
-    "polymer": "1 - 2"
+    "polymer": "1.9.1 - 2"
   },
   "devDependencies": {
     "iron-component-page": "^2.0.0",
@@ -29,7 +29,7 @@
   "variants": {
     "1.x": {
       "dependencies": {
-        "polymer": "^1.11.0"
+        "polymer": "^1.9.1"
       },
       "resolutions": {
         "webcomponentsjs": "^0.7"

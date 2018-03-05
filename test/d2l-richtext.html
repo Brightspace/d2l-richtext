@@ -18,7 +18,7 @@
 			</template>
 		</test-fixture>
 
-		<test-fixture id="with-internal-quicklink">
+		<test-fixture id="with-quicklink-consumer">
 			<template>
 				<d2l-richtext
 					richtext="<p>This demo will render quicklinks with the div tag:</p><p><d2l-richtext-quicklink type='url'><a href='http://www.google.com/'>quicklink</a></d2l-richtext-quicklink></p>"
@@ -47,12 +47,12 @@
 
 				describe('with-quicklink-consumer', function() {
 					it('should instantiate the element', function() {
-						elem = fixture('with-internal-quicklink');
+						elem = fixture('with-quicklink-consumer');
 						expect(elem.is).to.equal('d2l-richtext');
 					});
 
 					it('should replace d2l-richtext-quicklink tags with div tags', function() {
-						elem = fixture('with-internal-quicklink');
+						elem = fixture('with-quicklink-consumer');
 
 						var shtml = elem.$$('s-html');
 						var divQuicklinkTag = shtml.$$('div > a');

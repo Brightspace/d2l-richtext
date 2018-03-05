@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-tooltip test</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<link rel="import" href="../d2l-richtext.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<d2l-richtext
+					richtext="<p>This is a demo</p>"
+				>
+				<d2l-richtext>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="with-internal-quicklink">
+			<template>
+				<d2l-richtext
+					richtext="<p>This demo will render quicklinks with the div tag:</p><p><d2l-richtext-quicklink type='url'><a href='http://www.google.com/'>quicklink</a></d2l-richtext-quicklink></p>"
+					quicklink-consumer="div"
+				>
+				<d2l-richtext>
+			</template>
+		</test-fixture>
+
+		<script>
+			describe('d2l-richtext', function() {
+				var elem;
+				describe('basic', function() {
+					it('should instantiate the element', function() {
+						elem = fixture('basic');
+						expect(elem.is).to.equal('d2l-richtext');
+					});
+
+					it('should render the html', function() {
+						elem = fixture('basic');
+						expect(
+							elem.$$('s-html').$$('p').textContent
+						).to.equal('This is a demo');
+					});
+				});
+
+				describe('with-quicklink-consumer', function() {
+					it('should instantiate the element', function() {
+						elem = fixture('with-internal-quicklink');
+						expect(elem.is).to.equal('d2l-richtext');
+					});
+
+					it('should replace d2l-richtext-quicklink tags with div tags', function() {
+						elem = fixture('with-internal-quicklink');
+
+						var shtml = elem.$$('s-html');
+						var divQuicklinkTag = shtml.$$('div > a');
+						var quicklinkTag = shtml.$$('d2l-richtext-quicklink');
+
+						expect(divQuicklinkTag.textContent.trim()).to.equal('quicklink');
+						expect(quicklinkTag).to.equal(null);
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

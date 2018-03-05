@@ -17,7 +17,7 @@
     "wct.conf.json"
   ],
   "dependencies": {
-    "s-html": "^0.1.3",
+    "s-html": "Brightspace/s-html#^1.0.0",
     "polymer": "1.9.1 - 2"
   },
   "devDependencies": {

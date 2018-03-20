@@ -22,6 +22,10 @@
 				quicklinkConsumer: {
 					type: String,
 					default: null
+				},
+				imageConsumer: {
+					type: String,
+					default: null
 				}
 			},
 			ready: function() {
@@ -31,9 +35,18 @@
 				if (!richtext) {
 					return;
 				}
+				this._processedRichtext = this._replaceConsumers({
+					'd2l-richtext-quicklink': this.quicklinkConsumer,
+					'd2l-richtext-image': this.imageConsumer
+				});
+			},
+			_replaceConsumers: function(consumerMap, richtext) {
 				var curVal = richtext;
-				curVal = this._replaceIfProviderGiven(/(<\/? ?)d2l-richtext-quicklink/g, this.quicklinkConsumer, richtext);
-				this._processedRichtext = curVal;
+				Object.keys(consumerMap).forEach(function(key) {
+					var regex = new RegExp('(</? ?)' + key, 'g');
+					curVal = this._replaceIfProviderGiven(regex, consumerMap[key], richtext);
+				}.bind(this));
+				return curVal;
 			},
 			_replaceIfProviderGiven: function(tagName, provider, richtext) {
 				if (!provider) {

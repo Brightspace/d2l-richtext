@@ -26,22 +26,10 @@
 				imageConsumer: {
 					type: String,
 					default: null
-				},
-				getToken: Function
-			},
-			listeners: {
-				'get-token': '_onGetTokenRequest'
-			},
+				}
+			}
 			ready: function() {
 				this._onRichTextChanged(this.richtext);
-			},
-			_onGetTokenRequest: function(e) {
-				e.stopPropagation();
-				if (this.getToken && e.detail.callback) {
-					this.getToken().then(function(token) {
-						e.detail.callback(token);
-					});
-				}
 			},
 			_onRichTextChanged: function(richtext) {
 				if (!richtext) {

@@ -26,10 +26,22 @@
 				imageConsumer: {
 					type: String,
 					default: null
-				}
+				},
+				getToken: Function
+			},
+			listeners: {
+				'get-token': '_onGetTokenRequest'
 			},
 			ready: function() {
 				this._onRichTextChanged(this.richtext);
+			},
+			_onGetTokenRequest: function(e) {
+				e.stopPropagation();
+				if (this.getToken && e.detail.callback) {
+					this.getToken().then(function(token) {
+						e.detail.callback(token);
+					});
+				}
 			},
 			_onRichTextChanged: function(richtext) {
 				if (!richtext) {
@@ -38,13 +50,15 @@
 				this._processedRichtext = this._replaceConsumers({
 					'd2l-richtext-quicklink': this.quicklinkConsumer,
 					'd2l-richtext-image': this.imageConsumer
-				});
+				}, richtext);
 			},
 			_replaceConsumers: function(consumerMap, richtext) {
 				var curVal = richtext;
 				Object.keys(consumerMap).forEach(function(key) {
-					var regex = new RegExp('(</? ?)' + key, 'g');
-					curVal = this._replaceIfProviderGiven(regex, consumerMap[key], richtext);
+					if (consumerMap[key]) {
+						var regex = new RegExp('(</? ?)' + key, 'g');
+						curVal = this._replaceIfProviderGiven(regex, consumerMap[key], richtext);
+					}
 				}.bind(this));
 				return curVal;
 			},

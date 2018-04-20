@@ -1,0 +1,98 @@
+<script>
+	'use strict';
+	window.D2L = window.D2L || {};
+	window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
+	window.D2L.PolymerBehaviors.RichText = window.D2L.PolymerBehaviors.Rubric || {};
+	window.D2L.PolymerBehaviors.RichText.MathJax = {
+
+		loadMathJax: function() {
+			if (!window.hasOwnProperty('MathJax')) {
+				var script = document.createElement('script');
+				script.type = 'text/javascript';
+				script.src = '//s.brightspace.com/lib/mathjax/2.6.1/MathJax.js?config=MML_CHTML';
+
+				document.body.appendChild(script);
+
+				var self = this;
+				script.addEventListener('load', function() {
+					self.initializeMathJaxObjects();
+				});
+			} else {
+				this.initializeMathJaxObjects();
+			}
+		},
+
+		initializeMathJaxObjects: function() {
+			MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+				//  do something with the error.  message[2] is the Error object that records the problem.
+				console.log(message[2]);
+			});
+			this.__setupMathJax();
+		},
+
+		renderMathJax: function(element) {
+			console.log('element is ' + element);
+			MathJax.Hub.Queue(['Typeset', MathJax.Hub, element]);
+		},
+
+		__setupMathJax: function() {
+			this.__loadOutputSetup();
+			var mathJaxConfig = {
+				showProcessingMessages: false,
+				messageStyle: 'none',
+				menuSettings: {
+					context: 'MathJax',
+					zoom: 'None'
+				},
+				NativeMML: {
+					showMathMenuMSIE: false,
+					scale: 140
+				},
+				"HTML-CSS": {
+					linebreaks: {
+						automatic: true,
+						width: 'container'
+					},
+					imageFont: null,
+					scale: 130
+				},
+				styles: {
+					".MathJax .merror": {
+						"background-color": "#fff !important",
+						color: "#565a5c !important",
+						border: "1px solid #cd2026 !important"
+					}
+				}
+			};
+			MathJax.Hub.Config( mathJaxConfig);
+		},
+
+		__loadOutputSetup: function() {
+			//return;
+			MathJax.Hub.Register.StartupHook('End Jax', function () {
+				var BROWSER = MathJax.Hub.Browser;
+
+				var canUseMML = (BROWSER.isFirefox && BROWSER.versionAtLeast('1.5')) ||
+					(BROWSER.isMSIE && BROWSER.hasMathPlayer) ||
+					(BROWSER.isSafari && BROWSER.versionAtLeast('5.0')) ||
+					(BROWSER.isOpera && BROWSER.versionAtLeast('9.52') &&
+						!BROWSER.versionAtLeast('14.0'));
+
+				var CONFIG = MathJax.Hub.CombineConfig('MMLorHTML', {
+					prefer: {
+						MSIE: 'MML',
+						Firefox: 'HTML', Opera: 'HTML', Chrome: 'HTML', Safari: 'HTML',
+						other: 'HTML'
+					}
+				});
+
+				var jax = CONFIG.prefer[BROWSER] || CONFIG.prefer.other;
+				if (jax === 'HTML') jax = 'HTML-CSS'; else if (jax === 'MML') jax = 'NativeMML';
+				if (jax === 'NativeMML' && !canUseMML) jax = CONFIG.prefer.other;
+				console.log(jax);
+
+				MathJax.Hub.setRenderer(jax);
+			});
+		}
+	}
+</script>

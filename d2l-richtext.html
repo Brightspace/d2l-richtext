@@ -1,12 +1,14 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../s-html/s-html.html">
-
+<link rel="import" href="./math-jax-behavior.html">
 <!--
 	@demo demo/d2l-richtext.html
 -->
 <dom-module id="d2l-richtext">
 	<template>
-		<s-html html="[[_processedRichtext]]"></s-html>
+		<s-html html="[[_processedRichtext]]">
+			<span id="htmlparent"></span>
+		</s-html>
 	</template>
 
 	<script>
@@ -22,8 +24,15 @@
 				quicklinkConsumer: {
 					type: String,
 					default: null
+				},
+				_hasMath: {
+					type: Boolean,
+					value: false
 				}
 			},
+			behaviors: [
+				D2L.PolymerBehaviors.RichText.MathJax
+			],
 			ready: function() {
 				this._onRichTextChanged(this.richtext);
 			},
@@ -34,6 +43,18 @@
 				var curVal = richtext;
 				curVal = this._replaceIfProviderGiven(/(<\/? ?)d2l-richtext-quicklink/g, this.quicklinkConsumer, richtext);
 				this._processedRichtext = curVal;
+				this._hasMath = richtext.indexOf('<math') !== -1;
+				// this._hasMath = false;
+				if (this._hasMath) {
+					this.loadMathJax();
+					//this.loadMathJaxLibrary();
+					setTimeout(function() {
+						console.log('html text changed, render math');
+						this.renderMathJax(this.$.htmlparent);
+
+						//this.runMathJaxPrepProcessor(this.$.htmlparent);
+					}.bind(this), 3000);
+				}
 			},
 			_replaceIfProviderGiven: function(tagName, provider, richtext) {
 				if (!provider) {

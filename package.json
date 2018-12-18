@@ -6,8 +6,8 @@
     "postinstall": "polymer install --variants",
     "test": "npm run lint && cross-env LAUNCHPAD_BROWSERS=chrome polymer test --skip-plugin sauce",
     "test:dev": "npm run lint && cross-env LAUNCHPAD_BROWSERS=chrome polymer test -p --skip-plugin sauce",
-    "lint": "npm run lint:js && npm run lint:wc",
-    "lint:js": "eslint *.html demo/*.html test/*.html",
+    "lint": "npm run lint:html && npm run lint:wc",
+    "lint:html": "eslint *.html demo/*.html test/*.html",
     "lint:wc": "polymer lint"
   },
   "homepage": "https://github.com/Brightspace/d2l-richtext",

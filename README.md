@@ -15,3 +15,13 @@ The `d2l-richtext` component takes in Annotated Html from a D2L Siren "richtext"
 	quicklink-consumer="d2l-richtext-quicklink-parent"
 ></d2l-richtext>
 ```
+
+## Demo
+
+Run:
+
+```
+npm run demo
+```
+
+Then visit `http://127.0.0.1:8081/components/d2l-richtext/demo/d2l-richtext.html`

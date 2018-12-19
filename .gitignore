@@ -2,8 +2,6 @@
 
 # dependencies
 node_modules
-bower_components*
-bower-*
 
 # testing
 coverage
@@ -18,3 +16,5 @@ npm-debug.log
 yarn.lock
 public/polymer-components.vulcanized.html
 package-lock.json
+
+node_modules

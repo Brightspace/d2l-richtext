@@ -21,7 +21,7 @@ The `d2l-richtext` component takes in Annotated Html from a D2L Siren "richtext"
 Run:
 
 ```
-npm run demo
+polymer serve
 ```
 
 Then visit `http://127.0.0.1:8081/components/d2l-richtext/demo/d2l-richtext.html`

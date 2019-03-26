@@ -45,7 +45,7 @@
   },
   "main": "d2l-richtext.js",
   "dependencies": {
-    "s-html": "Brightspace/s-html#semver:^2.0.0",
+    "s-html": "Brightspace/s-html#semver:^2",
     "@polymer/polymer": "^3.0.0"
   }
 }
